@@ -5,10 +5,7 @@ import com.dickson.TAPAssessment.dao.PersonRepository;
 import com.dickson.TAPAssessment.model.Household;
 import com.dickson.TAPAssessment.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +34,12 @@ public class Controller {
     public List<Object[]> getAllHouseholdsAndPersons() {
         List<Object[]> householdsAndPersons = personRepository.getAllHouseholds();
         return householdsAndPersons;
+    }
+
+    @GetMapping("/household/{id}")
+    public List<Object[]> getHouseholdAndPersonsById(@PathVariable String id) {
+        Integer householdId = Integer.parseInt(id);
+        return householdRepository.getAllHouseholdsAndPersonsById(householdId);
     }
 
     // Person Methods
