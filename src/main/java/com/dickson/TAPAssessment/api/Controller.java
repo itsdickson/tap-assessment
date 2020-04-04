@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,6 +31,12 @@ public class Controller {
     @PostMapping("/household")
     public Household insertHousehold(@RequestBody Household household) {
         return householdRepository.save(household);
+    }
+
+    @GetMapping("/households")
+    public List<Object[]> getAllHouseholdsAndPersons() {
+        List<Object[]> householdsAndPersons = personRepository.getAllHouseholds();
+        return householdsAndPersons;
     }
 
     // Person Methods
