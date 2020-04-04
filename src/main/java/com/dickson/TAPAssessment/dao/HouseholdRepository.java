@@ -18,6 +18,11 @@ public interface HouseholdRepository extends JpaRepository<Household, UUID> {
 //        return insertHousehold(id, household);
 //    }
 
+    // @Query (SELECT h.id, h.type, p.name, p.gender, p.maritalStatus, p.occupation, p.income, p.dob, p.spouse)
+    @Query("SELECT h, p " +
+            "FROM Person p, Household h WHERE h.id = p.household")
+    List<Object[]> getAllHouseholdsAndPersons();
+
     @Query("SELECT h, p FROM Person p, Household h WHERE h.id = p.household AND h.id = :householdId")
     List<Object[]> getAllHouseholdsAndPersonsById(@Param("householdId") Integer householdId);
 

@@ -16,8 +16,4 @@ public interface PersonRepository extends JpaRepository<Person, UUID> {
 //        UUID id = UUID.randomUUID();
 //        return insertPerson(id, person);
 //    }
-    // @Query (SELECT h.id, h.type, p.name, p.gender, p.maritalStatus, p.occupation, p.income, p.dob, p.spouse)
-    @Query("SELECT h, p " +
-            "FROM Person p, Household h WHERE h.id = p.household")
-    List<Object[]> getAllHouseholds();
 }

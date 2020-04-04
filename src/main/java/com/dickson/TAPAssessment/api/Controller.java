@@ -32,8 +32,7 @@ public class Controller {
 
     @GetMapping("/households")
     public List<Object[]> getAllHouseholdsAndPersons() {
-        List<Object[]> householdsAndPersons = personRepository.getAllHouseholds();
-        return householdsAndPersons;
+        return householdRepository.getAllHouseholdsAndPersons();
     }
 
     @GetMapping("/household/{id}")
