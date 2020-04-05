@@ -91,4 +91,40 @@ public class Person {
     public Integer getHousehold() {
         return household;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setMaritalStatus(MaritalStatus maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+
+    public void setOccupation(OccupationType occupation) {
+        this.occupation = occupation;
+    }
+
+    public void setIncome(int income) {
+        this.income = income;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public void setSpouse(Integer spouse) {
+        this.spouse = spouse;
+    }
+
+    public void setHousehold(Integer household) {
+        this.household = household;
+    }
 }

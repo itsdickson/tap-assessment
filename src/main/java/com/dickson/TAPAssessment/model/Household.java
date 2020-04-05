@@ -31,4 +31,12 @@ public class Household {
     public HouseholdType getType() {
         return type;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setType(HouseholdType type) {
+        this.type = type;
+    }
 }
