@@ -41,6 +41,11 @@ public class Controller {
         return householdRepository.getAllHouseholdsAndPersonsById(householdId);
     }
 
+    @GetMapping("/yoloGstGrant")
+    public List<Object[]> getYoloGstGrantRecepients() {
+        return householdRepository.getYoloGstGrant();
+    }
+
     // Person Methods
     @GetMapping("/person")
     public List<Person> getAllPersons() {

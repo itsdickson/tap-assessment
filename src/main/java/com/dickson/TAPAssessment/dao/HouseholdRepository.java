@@ -13,11 +13,12 @@ import java.util.UUID;
 public interface HouseholdRepository extends JpaRepository<Household, UUID> {
 
     // @Query (SELECT h.id, h.type, p.name, p.gender, p.maritalStatus, p.occupation, p.income, p.dob, p.spouse)
-    @Query("SELECT h, p " +
-            "FROM Person p, Household h WHERE h.id = p.household")
+    @Query("SELECT h, p FROM Person p, Household h WHERE h.id = p.household")
     List<Object[]> getAllHouseholdsAndPersons();
 
     @Query("SELECT h, p FROM Person p, Household h WHERE h.id = p.household AND h.id = :householdId")
     List<Object[]> getAllHouseholdsAndPersonsById(@Param("householdId") Integer householdId);
 
+    @Query("SELECT h, p FROM Person p, Household h WHERE h.id = p.household GROUP by h.id HAVING SUM(p.income) < 10000")
+    List<Object[]> getYoloGstGrant();
 }
