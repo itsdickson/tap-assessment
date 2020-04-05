@@ -109,9 +109,9 @@ public class Controller {
     }
 
     @GetMapping("/elderBonus")
-    public List<List<Object[]>> getElderBonusRecepients() {
+    public List<List<Object[]>> getElderBonusRecipients() {
         LocalDate age = LocalDate.now().minusYears(50);
-        List<Object[]> personsOfAgeMoreThan50 = householdRepository.getElderBonusRecepients(Date.valueOf(age));
+        List<Object[]> personsOfAgeMoreThan50 = householdRepository.getElderBonusRecipients(Date.valueOf(age));
         Set<Integer> set = new HashSet<>();
         for (Object[] o : personsOfAgeMoreThan50) {
             set.add(((Household) o[0]).getId());
@@ -127,7 +127,7 @@ public class Controller {
     }
 
     @GetMapping("/babySunshineGrant")
-    public List<List<Object[]>> getBabySunshineGrantRecepients() {
+    public List<List<Object[]>> getBabySunshineGrantRecipients() {
         LocalDate age = LocalDate.now().minusYears(5);
         List<Person> personsOfAgeLessThan5 = personRepository.findByDobAfter(Date.valueOf(age));
         Set<Integer> set = new HashSet<>();
@@ -145,8 +145,8 @@ public class Controller {
     }
 
     @GetMapping("/yoloGstGrant")
-    public List<List<Object[]>> getYoloGstGrantRecepients() {
-        List<Object[]> householdsOfIncomeLessThan100k = householdRepository.getYoloGstGrantRecepients();
+    public List<List<Object[]>> getYoloGstGrantRecipients() {
+        List<Object[]> householdsOfIncomeLessThan100k = householdRepository.getYoloGstGrantRecipients();
         Set<Integer> set = new HashSet<>();
         for (Object[] o : householdsOfIncomeLessThan100k) {
             set.add(((Household)o[0]).getId());
