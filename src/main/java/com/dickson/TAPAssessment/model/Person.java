@@ -127,4 +127,19 @@ public class Person {
     public void setHousehold(Integer household) {
         this.household = household;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender=" + gender +
+                ", maritalStatus=" + maritalStatus +
+                ", occupation=" + occupation +
+                ", income=" + income +
+                ", dob=" + dob +
+                ", spouse=" + spouse +
+                ", household=" + household +
+                '}';
+    }
 }

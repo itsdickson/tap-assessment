@@ -39,4 +39,12 @@ public class Household {
     public void setType(HouseholdType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Household{" +
+                "id=" + id +
+                ", type=" + type +
+                '}';
+    }
 }
