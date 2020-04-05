@@ -111,10 +111,10 @@ public class Controller {
     @GetMapping("/elderBonus")
     public List<List<Object[]>> getElderBonusRecepients() {
         LocalDate age = LocalDate.now().minusYears(50);
-        List<Person> personsOfAgeMoreThan50 = personRepository.findByDobBefore(Date.valueOf(age));
+        List<Object[]> personsOfAgeMoreThan50 = householdRepository.getElderBonusRecepients(Date.valueOf(age));
         Set<Integer> set = new HashSet<>();
-        for (Person p : personsOfAgeMoreThan50) {
-            set.add(p.getHousehold());
+        for (Object[] o : personsOfAgeMoreThan50) {
+            set.add(((Household) o[0]).getId());
         }
 
         List<List<Object[]>> households = new ArrayList<>();

@@ -17,7 +17,5 @@ public interface PersonRepository extends JpaRepository<Person, UUID> {
 
     List<Person> findByDobAfter(Date date);
 
-    List<Person> findByDobBefore(Date date);
-
     List<Person> findByMaritalStatusEquals(Person.MaritalStatus maritalStatus);
 }
