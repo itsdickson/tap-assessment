@@ -7,8 +7,9 @@ import com.dickson.TAPAssessment.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.*;
 
 @RestController
 public class Controller {
@@ -41,6 +42,25 @@ public class Controller {
         return householdRepository.getAllHouseholdsAndPersonsById(householdId);
     }
 
+    @GetMapping("/babySunshineGrant")
+    public List<List<Object[]>> getBabySunshineGrantRecepients() {
+        LocalDate age = LocalDate.now().minusYears(5);
+        System.out.println("age: " + age.toString());
+        List<Person> personsOfAgeLessThan5 = personRepository.findByDobAfter(Date.valueOf(age));
+        Set<Integer> set = new HashSet<>();
+        for (Person p : personsOfAgeLessThan5) {
+            set.add(p.getHousehold());
+        }
+
+        List<List<Object[]>> res = new ArrayList<>();
+
+        for (Integer i : set) {
+            res.add(householdRepository.getAllHouseholdsAndPersonsById(i));
+        }
+
+        return res;
+    }
+
     @GetMapping("/yoloGstGrant")
     public List<Object[]> getYoloGstGrantRecepients() {
         return householdRepository.getYoloGstGrant();
@@ -58,6 +78,7 @@ public class Controller {
         if (insertedPerson.getSpouse() != null) {
             Optional<Person> spouse = personRepository.findById(insertedPerson.getSpouse());
             if (spouse.get().getSpouse() == null) {
+                spouse.get().setSpouse(insertedPerson.getId());
                 personRepository.save(spouse.get());
             }
         }
