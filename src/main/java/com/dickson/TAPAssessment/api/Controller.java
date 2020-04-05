@@ -42,6 +42,26 @@ public class Controller {
         return householdRepository.getAllHouseholdsAndPersonsById(householdId);
     }
 
+    // Person Methods
+    @GetMapping("/person")
+    public List<Person> getAllPersons() {
+        return personRepository.findAll();
+    }
+
+    @PostMapping("/person")
+    public Person insertPerson(@RequestBody Person person) {
+        Person insertedPerson = personRepository.save(person);
+        if (insertedPerson.getSpouse() != null) {
+            Optional<Person> spouse = personRepository.findById(insertedPerson.getSpouse());
+            if (spouse.get().getSpouse() == null) {
+                spouse.get().setSpouse(insertedPerson.getId());
+                personRepository.save(spouse.get());
+            }
+        }
+        return insertedPerson;
+    }
+
+    // Scheme Methods
     @GetMapping("/studentEncouragementBonus")
     public List<List<Object[]>> getStudentEncouragementBonusRecepients() {
         LocalDate age = LocalDate.now().minusYears(16);
@@ -158,24 +178,5 @@ public class Controller {
             households.add(householdRepository.getAllHouseholdsAndPersonsById(i));
         }
         return households;
-    }
-
-    // Person Methods
-    @GetMapping("/person")
-    public List<Person> getAllPersons() {
-        return personRepository.findAll();
-    }
-
-    @PostMapping("/person")
-    public Person insertPerson(@RequestBody Person person) {
-        Person insertedPerson = personRepository.save(person);
-        if (insertedPerson.getSpouse() != null) {
-            Optional<Person> spouse = personRepository.findById(insertedPerson.getSpouse());
-            if (spouse.get().getSpouse() == null) {
-                spouse.get().setSpouse(insertedPerson.getId());
-                personRepository.save(spouse.get());
-            }
-        }
-        return insertedPerson;
     }
 }
