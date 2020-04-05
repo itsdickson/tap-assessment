@@ -24,7 +24,7 @@ public class Person {
     @Enumerated(EnumType.STRING)
     private OccupationType occupation;
 
-    private int income;
+    private Integer income;
     private Date dob;
     private Integer spouse;
     private Integer household;
@@ -32,7 +32,7 @@ public class Person {
     public Person() {}
 
     public Person(String name, Gender gender, MaritalStatus maritalStatus, OccupationType occupation,
-                  int income, Date dob, Integer spouse, Integer household) {
+                  Integer income, Date dob, Integer spouse, Integer household) {
         this.name = name;
         this.gender = gender;
         this.maritalStatus = maritalStatus;
@@ -44,7 +44,7 @@ public class Person {
     }
 
     public Person(Integer id, String name, Gender gender, MaritalStatus maritalStatus, OccupationType occupation,
-                  int income, Date dob, Integer spouse, Integer household) {
+                  Integer income, Date dob, Integer spouse, Integer household) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -76,7 +76,7 @@ public class Person {
         return occupation;
     }
 
-    public int getIncome() {
+    public Integer getIncome() {
         return income;
     }
 
@@ -112,7 +112,7 @@ public class Person {
         this.occupation = occupation;
     }
 
-    public void setIncome(int income) {
+    public void setIncome(Integer income) {
         this.income = income;
     }
 

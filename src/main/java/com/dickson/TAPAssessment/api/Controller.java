@@ -42,6 +42,39 @@ public class Controller {
         return householdRepository.getAllHouseholdsAndPersonsById(householdId);
     }
 
+    @GetMapping("/studentEncouragementBonus")
+    public List<List<Object[]>> getStudentEncouragementBonusRecepients() {
+        LocalDate age = LocalDate.now().minusYears(16);
+        List<Person> personsOfAgeLessThan16 = personRepository.findByDobAfter(Date.valueOf(age));
+        Set<Integer> set1 = new HashSet<>();
+        for (Person p : personsOfAgeLessThan16) {
+            set1.add(p.getHousehold());
+        }
+
+        List<Object[]> householdsWithIncomeLessThan150000 =
+                householdRepository.getAllHouseholdsWithIncomeLowerThan(Long.valueOf(150000));
+        Set<Integer> set2 = new HashSet<>();
+        for (Object[] o : householdsWithIncomeLessThan150000) {
+            set2.add(((Household)o[0]).getId());
+        }
+
+        Set<Integer> householdSet = new HashSet<>();
+
+        for (Integer s : set1) {
+            if (set2.contains(s)) {
+                householdSet.add(s);
+            }
+        }
+
+        List<List<Object[]>> households = new ArrayList<>();
+
+        for (Integer i : householdSet) {
+            households.add(householdRepository.getAllHouseholdsAndPersonsById(i));
+        }
+
+        return households;
+    }
+
     @GetMapping("/familyTogethernessScheme")
     public List<List<Object[]>> getFamilyTogethernessSchemeRecepients() {
         LocalDate age = LocalDate.now().minusYears(18);
@@ -113,7 +146,7 @@ public class Controller {
 
     @GetMapping("/yoloGstGrant")
     public List<Object[]> getYoloGstGrantRecepients() {
-        return householdRepository.getYoloGstGrantRecepients();
+        return householdRepository.getAllHouseholdsWithIncomeLowerThan(Long.valueOf(100000));
     }
 
     // Person Methods
