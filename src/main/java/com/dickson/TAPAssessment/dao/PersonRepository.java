@@ -1,5 +1,6 @@
 package com.dickson.TAPAssessment.dao;
 
+import com.dickson.TAPAssessment.model.Household;
 import com.dickson.TAPAssessment.model.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,6 @@ public interface PersonRepository extends JpaRepository<Person, UUID> {
     List<Person> findByDobAfter(Date date);
 
     List<Person> findByDobBefore(Date date);
+
+    List<Person> findByMaritalStatusEquals(Person.MaritalStatus maritalStatus);
 }

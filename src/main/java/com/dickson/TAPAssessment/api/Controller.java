@@ -42,6 +42,39 @@ public class Controller {
         return householdRepository.getAllHouseholdsAndPersonsById(householdId);
     }
 
+    @GetMapping("/familyTogethernessScheme")
+    public List<List<Object[]>> getFamilyTogethernessSchemeRecepients() {
+        LocalDate age = LocalDate.now().minusYears(18);
+        List<Person> personsOfAgeLessThan18 = personRepository.findByDobAfter(Date.valueOf(age));
+        Set<Integer> set1 = new HashSet<>();
+        for (Person p : personsOfAgeLessThan18) {
+            set1.add(p.getHousehold());
+        }
+
+        List<Person> marriedPersons =
+                personRepository.findByMaritalStatusEquals(Person.MaritalStatus.married);
+        Set<Integer> set2 = new HashSet<>();
+        for (Person p : marriedPersons) {
+            set2.add(p.getHousehold());
+        }
+
+        Set<Integer> householdSet = new HashSet<>();
+
+        for (Integer s : set1) {
+            if (set2.contains(s)) {
+                householdSet.add(s);
+            }
+        }
+
+        List<List<Object[]>> households = new ArrayList<>();
+
+        for (Integer i : householdSet) {
+            households.add(householdRepository.getAllHouseholdsAndPersonsById(i));
+        }
+
+        return households;
+    }
+
     @GetMapping("/elderBonus")
     public List<List<Object[]>> getElderBonusRecepients() {
         LocalDate age = LocalDate.now().minusYears(50);
