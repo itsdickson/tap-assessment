@@ -7,8 +7,8 @@ import com.dickson.TAPAssessment.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class Controller {
@@ -49,7 +49,13 @@ public class Controller {
 
     @PostMapping("/person")
     public Person insertPerson(@RequestBody Person person) {
-        System.out.println("spouseId = " + person.getSpouse());
-        return personRepository.save(person);
+        Person insertedPerson = personRepository.save(person);
+        if (insertedPerson.getSpouse() != null) {
+            Optional<Person> spouse = personRepository.findById(insertedPerson.getSpouse());
+            if (spouse.get().getSpouse() == null) {
+                personRepository.save(spouse.get());
+            }
+        }
+        return insertedPerson;
     }
 }

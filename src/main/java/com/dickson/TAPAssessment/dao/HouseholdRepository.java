@@ -11,12 +11,6 @@ import java.util.UUID;
 
 @Repository
 public interface HouseholdRepository extends JpaRepository<Household, UUID> {
-//    int insertHousehold(UUID id, Household household);
-//
-//    default int insertHousehold(Household household) {
-//        UUID id = UUID.randomUUID();
-//        return insertHousehold(id, household);
-//    }
 
     // @Query (SELECT h.id, h.type, p.name, p.gender, p.maritalStatus, p.occupation, p.income, p.dob, p.spouse)
     @Query("SELECT h, p " +
