@@ -145,8 +145,19 @@ public class Controller {
     }
 
     @GetMapping("/yoloGstGrant")
-    public List<Object[]> getYoloGstGrantRecepients() {
-        return householdRepository.getAllHouseholdsWithIncomeLowerThan(Long.valueOf(100000));
+    public List<List<Object[]>> getYoloGstGrantRecepients() {
+        List<Object[]> householdsOfIncomeLessThan100k = householdRepository.getYoloGstGrantRecepients();
+        Set<Integer> set = new HashSet<>();
+        for (Object[] o : householdsOfIncomeLessThan100k) {
+            set.add(((Household)o[0]).getId());
+        }
+
+        List<List<Object[]>> households = new ArrayList<>();
+
+        for (Integer i : set) {
+            households.add(householdRepository.getAllHouseholdsAndPersonsById(i));
+        }
+        return households;
     }
 
     // Person Methods
