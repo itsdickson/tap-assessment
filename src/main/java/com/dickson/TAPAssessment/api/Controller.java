@@ -55,10 +55,27 @@ public class Controller {
             Optional<Person> spouse = personRepository.findById(insertedPerson.getSpouse());
             if (spouse.get().getSpouse() == null) {
                 spouse.get().setSpouse(insertedPerson.getId());
+                spouse.get().setMaritalStatus(Person.MaritalStatus.married);
                 personRepository.save(spouse.get());
             }
         }
         return insertedPerson;
+    }
+
+    @DeleteMapping("/person/{id}")
+    public Person deletePerson(@PathVariable String id) {
+        Integer personId = Integer.parseInt(id);
+        Optional<Person> personToDelete = personRepository.findById(personId);
+        if (personToDelete.get().getSpouse() != null) {
+            Optional<Person> spouse = personRepository.findById(personToDelete.get().getSpouse());
+            if (spouse.get().getSpouse() != null) {
+                spouse.get().setSpouse(null);
+                spouse.get().setMaritalStatus(Person.MaritalStatus.divorced);
+                personRepository.save(spouse.get());
+            }
+        }
+        personRepository.delete(personToDelete.get());
+        return personToDelete.get();
     }
 
     // Scheme Methods
