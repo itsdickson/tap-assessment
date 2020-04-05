@@ -42,6 +42,14 @@ public class Controller {
         return householdRepository.getAllHouseholdsAndPersonsById(householdId);
     }
 
+    @DeleteMapping("/household/{id}")
+    public Household deleteHousehold(@PathVariable String id) {
+        Integer householdId = Integer.parseInt(id);
+        Optional<Household> householdToDelete = householdRepository.findById(householdId);
+        householdRepository.delete(householdToDelete.get());
+        return householdToDelete.get();
+    }
+
     // Person Methods
     @GetMapping("/person")
     public List<Person> getAllPersons() {

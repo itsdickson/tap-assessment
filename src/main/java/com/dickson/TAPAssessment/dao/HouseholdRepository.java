@@ -8,10 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface HouseholdRepository extends JpaRepository<Household, UUID> {
+
+    Optional<Household> findById(Integer id);
 
     // @Query (SELECT h.id, h.type, p.name, p.gender, p.maritalStatus, p.occupation, p.income, p.dob, p.spouse)
     @Query("SELECT h, p FROM Person p, Household h WHERE h.id = p.household")
