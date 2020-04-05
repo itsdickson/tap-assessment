@@ -15,4 +15,6 @@ public interface PersonRepository extends JpaRepository<Person, UUID> {
     Optional<Person> findById(Integer id);
 
     List<Person> findByDobAfter(Date date);
+
+    List<Person> findByDobBefore(Date date);
 }

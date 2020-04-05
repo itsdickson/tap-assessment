@@ -42,28 +42,45 @@ public class Controller {
         return householdRepository.getAllHouseholdsAndPersonsById(householdId);
     }
 
+    @GetMapping("/elderBonus")
+    public List<List<Object[]>> getElderBonusRecepients() {
+        LocalDate age = LocalDate.now().minusYears(50);
+        List<Person> personsOfAgeMoreThan50 = personRepository.findByDobBefore(Date.valueOf(age));
+        Set<Integer> set = new HashSet<>();
+        for (Person p : personsOfAgeMoreThan50) {
+            set.add(p.getHousehold());
+        }
+
+        List<List<Object[]>> households = new ArrayList<>();
+
+        for (Integer i : set) {
+            households.add(householdRepository.getAllHouseholdsAndPersonsById(i));
+        }
+
+        return households;
+    }
+
     @GetMapping("/babySunshineGrant")
     public List<List<Object[]>> getBabySunshineGrantRecepients() {
         LocalDate age = LocalDate.now().minusYears(5);
-        System.out.println("age: " + age.toString());
         List<Person> personsOfAgeLessThan5 = personRepository.findByDobAfter(Date.valueOf(age));
         Set<Integer> set = new HashSet<>();
         for (Person p : personsOfAgeLessThan5) {
             set.add(p.getHousehold());
         }
 
-        List<List<Object[]>> res = new ArrayList<>();
+        List<List<Object[]>> households = new ArrayList<>();
 
         for (Integer i : set) {
-            res.add(householdRepository.getAllHouseholdsAndPersonsById(i));
+            households.add(householdRepository.getAllHouseholdsAndPersonsById(i));
         }
 
-        return res;
+        return households;
     }
 
     @GetMapping("/yoloGstGrant")
     public List<Object[]> getYoloGstGrantRecepients() {
-        return householdRepository.getYoloGstGrant();
+        return householdRepository.getYoloGstGrantRecepients();
     }
 
     // Person Methods

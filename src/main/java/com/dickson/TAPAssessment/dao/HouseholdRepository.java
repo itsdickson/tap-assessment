@@ -20,5 +20,5 @@ public interface HouseholdRepository extends JpaRepository<Household, UUID> {
     List<Object[]> getAllHouseholdsAndPersonsById(@Param("householdId") Integer householdId);
 
     @Query("SELECT h, p FROM Person p, Household h WHERE h.id = p.household GROUP by h.id HAVING SUM(p.income) < 10000")
-    List<Object[]> getYoloGstGrant();
+    List<Object[]> getYoloGstGrantRecepients();
 }
